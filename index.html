@@ -368,10 +368,10 @@
   <header>
     <div class="logo" onclick="switchTab('beranda')">MTs Nurul Hikmah</div>
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('beranda')">Beranda</button>
-      <button class="tab-btn" onclick="switchTab('profil')">Profil</button>
-      <button class="tab-btn" onclick="switchTab('projek')">Projek & Karya</button>
-      <button class="tab-btn" onclick="switchTab('kontak')">Kontak</button>
+      <button class="tab-btn active" data-tab="beranda" onclick="switchTab('beranda')">Beranda</button>
+      <button class="tab-btn" data-tab="profil" onclick="switchTab('profil')">Profil</button>
+      <button class="tab-btn" data-tab="projek" onclick="switchTab('projek')">Projek & Karya</button>
+      <button class="tab-btn" data-tab="kontak" onclick="switchTab('kontak')">Kontak</button>
     </div>
   </header>
 
@@ -434,9 +434,9 @@
 
       <!-- FILTER BUTTONS -->
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterProjects('all')">Semua</button>
-        <button class="filter-btn" onclick="filterProjects('web')">Web</button>
-        <button class="filter-btn" onclick="filterProjects('app')">Aplikasi</button>
+        <button class="filter-btn active" onclick="filterProjects('all', event)">Semua</button>
+        <button class="filter-btn" onclick="filterProjects('web', event)">Web</button>
+        <button class="filter-btn" onclick="filterProjects('app', event)">Aplikasi</button>
       </div>
 
       <!-- PROJECT GRID -->
@@ -507,25 +507,33 @@
       const tabs = document.querySelectorAll('.page-tab');
       tabs.forEach(tab => tab.classList.remove('active'));
 
-      // Nonaktifkan tombol navigasi
-      const buttons = document.querySelectorAll('.tab-btn');
+      // Nonaktifkan semua tombol navigasi
+      const buttons = document.querySelectorAll('.nav-tabs .tab-btn');
       buttons.forEach(btn => btn.classList.remove('active'));
 
       // Tampilkan tab yang dipilih
-      document.getElementById(tabId).classList.add('active');
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
 
-      // Aktifkan tombol yang sesuai
-      event.target.classList.add('active');
+      // Aktifkan tombol navigasi yang sesuai
+      const targetBtn = document.querySelector(`.nav-tabs .tab-btn[data-tab="${tabId}"]`);
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+      }
 
-      // Scroll ke atas halaman
+      // Scroll ke atas
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // 2. FILTER GALERI PROJEK
-    function filterProjects(category) {
+    function filterProjects(category, e) {
       const filterBtns = document.querySelectorAll('.filter-btn');
       filterBtns.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      if (e && e.target) {
+        e.target.classList.add('active');
+      }
 
       const cards = document.querySelectorAll('.project-card');
       cards.forEach(card => {
