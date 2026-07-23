@@ -3,490 +3,563 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MTs Nurul Hikmah — Modern & Aesthetic Hub</title>
+  <title>MTs Nurul Hikmah — Future Tech Hub</title>
   <style>
-    /* CSS Variables & Theme */
+    /* VARIABLES & THEME */
     :root {
-      --bg-color: #0f172a;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --accent-1: #a855f7;
-      --accent-2: #ec4899;
-      --border-color: rgba(255, 255, 255, 0.1);
-      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      --bg-dark: #030712;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --primary: #6366f1;
+      --secondary: #a855f7;
+      --accent: #ec4899;
+      --border: rgba(255, 255, 255, 0.08);
+      --glass-glow: rgba(99, 102, 241, 0.15);
     }
 
-    .light-mode {
-      --bg-color: #f1f5f9;
-      --card-bg: rgba(255, 255, 255, 0.7);
-      --text-main: #0f172a;
-      --text-sub: #475569;
-      --border-color: rgba(0, 0, 0, 0.1);
-      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Base Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      scroll-behavior: smooth;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
     body {
-      background-color: var(--bg-color);
+      background-color: var(--bg-dark);
       color: var(--text-main);
-      transition: background-color 0.4s ease, color 0.4s ease;
       min-height: 100vh;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Header & Navigation */
+    /* BACKGROUND GLOW EFFECTS */
+    .glow-bg {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    .glow-1 { top: -100px; left: -100px; background: var(--primary); }
+    .glow-2 { bottom: -100px; right: -100px; background: var(--accent); }
+
+    /* NAVBAR */
     header {
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 1.2rem 8%;
+      padding: 1rem 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
       z-index: 1000;
     }
 
     .logo {
-      font-size: 1.3rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    nav a {
-      color: var(--text-sub);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--text-main);
-    }
-
-    .theme-toggle {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
       cursor: pointer;
-      font-size: 0.85rem;
+    }
+
+    /* TAB NAVIGATION MENU */
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.3rem;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .theme-toggle:hover {
-      transform: scale(1.05);
+    .tab-btn.active, .tab-btn:hover {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
     }
 
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    /* PAGE CONTAINER & TAB CONTENT */
+    main {
+      margin-top: 80px;
+      flex: 1;
+      padding: 3rem 8%;
+    }
+
+    .page-tab {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .page-tab.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TAB 1: BERANDA */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
       align-items: center;
-      text-align: center;
-      padding: 8rem 2rem 4rem;
+      min-height: 70vh;
     }
 
     .badge {
-      background: rgba(168, 85, 247, 0.15);
-      color: var(--accent-1);
-      padding: 0.5rem 1.2rem;
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: var(--primary);
       border-radius: 50px;
       font-size: 0.85rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
-      border: 1px solid rgba(168, 85, 247, 0.3);
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      max-width: 800px;
-      line-height: 1.2;
+    .hero-title {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      font-weight: 800;
       margin-bottom: 1.5rem;
     }
 
-    .typing-text {
-      background: linear-gradient(135deg, #c084fc, #f472b6);
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero p {
-      color: var(--text-sub);
+    .hero-desc {
+      color: var(--text-muted);
       font-size: 1.1rem;
-      max-width: 600px;
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-card-preview {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    /* TAB 2: PROFIL / ABOUT */
+    .profile-section {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 3rem;
+      padding-left: 2rem;
+      border-left: 2px solid var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
       margin-bottom: 2.5rem;
     }
 
-    .cta-group {
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.55rem;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    /* TAB 3: GALERI / PROJEK WITH FILTER */
+    .filter-bar {
       display: flex;
       gap: 1rem;
-      flex-wrap: wrap;
+      margin-bottom: 2rem;
       justify-content: center;
     }
 
-    .btn-primary {
-      padding: 0.9rem 2rem;
+    .filter-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.5rem 1.2rem;
       border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
       color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
+      border-color: var(--primary);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 30px rgba(236, 72, 153, 0.6);
-    }
-
-    .btn-secondary {
-      padding: 0.9rem 2rem;
-      border-radius: 12px;
-      background: var(--card-bg);
-      color: var(--text-main);
-      text-decoration: none;
-      font-weight: 600;
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-    }
-
-    /* Stats Section */
-    .stats {
+    .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-      max-width: 1000px;
-      width: 90%;
-      margin: -2rem auto 6rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
 
-    .stat-card {
+    .project-card {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 2rem;
+      border: 1px solid var(--border);
       border-radius: 20px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .stat-card h3 {
-      font-size: 2.2rem;
-      color: var(--accent-1);
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-card p {
-      color: var(--text-sub);
-      font-size: 0.9rem;
-    }
-
-    /* Features Section */
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-title h2 {
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-title p {
-      color: var(--text-sub);
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      max-width: 1100px;
-      width: 90%;
-      margin: 0 auto 8rem;
-    }
-
-    .feature-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      transition: all 0.4s ease;
-      backdrop-filter: blur(12px);
+      padding: 1.5rem;
       cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .feature-card:hover {
-      transform: translateY(-10px);
-      border-color: var(--accent-1);
-      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 15px 30px var(--glass-glow);
     }
 
-    .icon {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      display: inline-block;
+    .project-card h4 {
+      font-size: 1.2rem;
+      margin: 1rem 0 0.5rem;
     }
 
-    .feature-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.8rem;
+    .project-card p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
-    .feature-card p {
-      color: var(--text-sub);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* Interactive Contact Section */
-    .contact-section {
+    /* TAB 4: KONTAK */
+    .contact-container {
       max-width: 600px;
-      width: 90%;
-      margin: 0 auto 8rem;
+      margin: 0 auto;
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
       border-radius: 24px;
-      padding: 3rem 2.5rem;
       backdrop-filter: blur(16px);
-      box-shadow: var(--glass-shadow);
     }
 
-    .form-group {
-      margin-bottom: 1.5rem;
-      text-align: left;
+    .form-control {
+      margin-bottom: 1.2rem;
     }
 
-    .form-group label {
+    .form-control label {
       display: block;
       margin-bottom: 0.5rem;
-      color: var(--text-sub);
+      color: var(--text-muted);
       font-size: 0.9rem;
     }
 
-    .form-group input, .form-group textarea {
+    .form-control input, .form-control textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .form-control input:focus, .form-control textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-submit {
       width: 100%;
       padding: 0.9rem;
+      border: none;
       border-radius: 12px;
-      border: 1px solid var(--border-color);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text-main);
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.3s ease;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.3s;
     }
 
-    .form-group input:focus, .form-group textarea:focus {
-      border-color: var(--accent-1);
+    .btn-submit:hover { opacity: 0.9; }
+
+    /* MODAL POPUP FOR DETAILS */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* Footer */
+    .modal-content {
+      background: #111827;
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      border-radius: 24px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    /* FOOTER */
     footer {
       text-align: center;
-      padding: 3rem 1rem;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-sub);
-      font-size: 0.9rem;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2.2rem; }
-      nav { display: none; }
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-title { font-size: 2.5rem; }
+      .nav-tabs { font-size: 0.8rem; }
+      .tab-btn { padding: 0.5rem 0.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- GLOW BACKGROUNDS -->
+  <div class="glow-bg glow-1"></div>
+  <div class="glow-bg glow-2"></div>
+
+  <!-- NAVIGATION BAR WITH TABS -->
   <header>
-    <div class="logo">MTs Nurul Hikmah</div>
-    <nav>
-      <a href="#home">Beranda</a>
-      <a href="#fitur">Keunggulan</a>
-      <a href="#kontak">Hubungi Kami</a>
-    </nav>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙 Ubah Mode</button>
+    <div class="logo" onclick="switchTab('beranda')">MTs Nurul Hikmah</div>
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('beranda')">Beranda</button>
+      <button class="tab-btn" onclick="switchTab('profil')">Profil</button>
+      <button class="tab-btn" onclick="switchTab('projek')">Projek & Karya</button>
+      <button class="tab-btn" onclick="switchTab('kontak')">Kontak</button>
+    </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="badge">🚀 Masa Depan Digital & Edukasi</div>
-    <h1>Mengembangkan Potensi Generasi Cerdas & <span class="typing-text" id="typing"></span></h1>
-    <p>Portal resmi integrasi teknologi dan pembelajaran modern. Menyiapkan peserta didik yang kreatif, inovatif, dan berakhlak mulia.</p>
-    <div class="cta-group">
-      <a href="#fitur" class="btn-primary">Jelajahi Fitur</a>
-      <a href="#kontak" class="btn-secondary">Kirim Pesan</a>
-    </div>
-  </section>
+  <!-- MAIN MULTI-TAB CONTENT -->
+  <main>
+    
+    <!-- TAB 1: BERANDA -->
+    <section id="beranda" class="page-tab active">
+      <div class="hero-grid">
+        <div>
+          <span class="badge">🚀 Website Generasi Terbaru</span>
+          <h1 class="hero-title">Inovasi Digital <br><span class="gradient-text">Tanpa Batas</span></h1>
+          <p class="hero-desc">Selamat datang di platform resmi berbasis web modern. Kami menggabungkan kreativitas, pemrograman, dan edukasi interaktif dalam satu repositori.</p>
+          <button class="tab-btn active" style="padding: 0.8rem 2rem; font-size: 1rem;" onclick="switchTab('projek')">Jelajahi Projek ➔</button>
+        </div>
+        <div class="hero-card-preview">
+          <h3>⚡ Dashboard Status</h3>
+          <p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Sistem terhubung secara aktif dengan GitHub Pages.</p>
+          <div style="display: flex; gap: 1rem;">
+            <div style="flex: 1; background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+              <h4 style="color: var(--primary);">100%</h4>
+              <small style="color: var(--text-muted);">Uptime Server</small>
+            </div>
+            <div style="flex: 1; background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+              <h4 style="color: var(--accent);">v2.0</h4>
+              <small style="color: var(--text-muted);">Versi Sistem</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Stats Section -->
-  <section class="stats">
-    <div class="stat-card">
-      <h3>100%</h3>
-      <p>Kurikulum Digital</p>
-    </div>
-    <div class="stat-card">
-      <h3>500+</h3>
-      <p>Siswa Aktif</p>
-    </div>
-    <div class="stat-card">
-      <h3>24/7</h3>
-      <p>Akses Repositori</p>
-    </div>
-  </section>
+    <!-- TAB 2: PROFIL -->
+    <section id="profil" class="page-tab">
+      <div class="profile-section">
+        <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Profil & Perjalanan</h2>
+        <p style="color: var(--text-muted);">Mengenal lebih dekat visi dan sejarah perkembangan lembaga kami.</p>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>2026 — Peluncuran Platform Digital</h3>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Mengintegrasikan sistem pembelajaran modern berbasis web dan repositori open-source.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>2025 — Pengembangan Program Robotik & Koding</h3>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Membuka ekstrakurikuler teknologi untuk melatih keterampilan pemrograman para siswa.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Visi Utama</h3>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Menciptakan ekosistem pendidikan yang adaptif terhadap perkembangan sains dan teknologi global.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Features Section -->
-  <section id="fitur">
-    <div class="section-title">
-      <h2>Program & Keunggulan</h2>
-      <p>Pengalaman belajar berbasis teknologi yang interaktif dan menyenangkan.</p>
-    </div>
+    <!-- TAB 3: PROJEK / GALERI -->
+    <section id="projek" class="page-tab">
+      <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem;">Galeri Projek Interaktif</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Klik pada kartu projek untuk melihat rincian detail.</p>
 
-    <div class="features">
-      <div class="feature-card" onclick="cardClick('E-Learning Platform')">
-        <div class="icon">💻</div>
-        <h3>E-Learning Interaktif</h3>
-        <p>Akses materi pembelajaran, tugas, dan ujian secara fleksibel kapan saja dan di mana saja.</p>
+      <!-- FILTER BUTTONS -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterProjects('all')">Semua</button>
+        <button class="filter-btn" onclick="filterProjects('web')">Web</button>
+        <button class="filter-btn" onclick="filterProjects('app')">Aplikasi</button>
       </div>
 
-      <div class="feature-card" onclick="cardClick('Teknologi & Koding')">
-        <div class="icon">🤖</div>
-        <h3>Ekskul Teknologi</h3>
-        <p>Pelatihan dasar pemrograman, robotik, dan literasi digital untuk generasi muda.</p>
+      <!-- PROJECT GRID -->
+      <div class="project-grid">
+        <div class="project-card" data-category="web" onclick="openModal('E-Learning Hub', 'Platform pembelajaran digital terpadu dengan modul interaktif dan evaluasi otomatis.')">
+          <span style="font-size: 2rem;">🌐</span>
+          <h4>E-Learning Hub</h4>
+          <p>Sistem manajemen kelas online interaktif.</p>
+        </div>
+        <div class="project-card" data-category="app" onclick="openModal('Smart Library', 'Aplikasi pencarian e-book dan jurnal ilmiah berbasis cloud storage.')">
+          <span style="font-size: 2rem;">📚</span>
+          <h4>Smart Library</h4>
+          <p>Katalog buku dan perpustakaan digital.</p>
+        </div>
+        <div class="project-card" data-category="web" onclick="openModal('Aesthetic Portfolio', 'Desain tampilan landing page dengan Glassmorphism CSS modern.')">
+          <span style="font-size: 2rem;">🎨</span>
+          <h4>Aesthetic Web</h4>
+          <p>Desain UI/UX interaktif berkecepatan tinggi.</p>
+        </div>
       </div>
+    </section>
 
-      <div class="feature-card" onclick="cardClick('Perpustakaan Digital')">
-        <div class="icon">📚</div>
-        <h3>Digital Library</h3>
-        <p>Ribuan koleksi buku digital, modul, dan jurnal ilmiah yang dapat diakses dengan mudah.</p>
+    <!-- TAB 4: KONTAK -->
+    <section id="kontak" class="page-tab">
+      <div class="contact-container">
+        <h2 style="margin-bottom: 0.5rem;">Hubungi Tim Kami</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Silakan isi formulir di bawah ini untuk mengirim pesan langsung.</p>
+
+        <form onsubmit="handleContactSubmit(event)">
+          <div class="form-control">
+            <label>Nama Lengkap</label>
+            <input type="text" placeholder="Masukkan nama..." required>
+          </div>
+          <div class="form-control">
+            <label>Email</label>
+            <input type="email" placeholder="nama@domain.com" required>
+          </div>
+          <div class="form-control">
+            <label>Pesan Anda</label>
+            <textarea rows="4" placeholder="Tuliskan pesan..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Kirim Pesan Sekarang 🚀</button>
+        </form>
       </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL POPUP -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h3 id="modal-title" style="color: var(--primary); margin-bottom: 1rem;">Judul Projek</h3>
+      <p id="modal-desc" style="color: var(--text-muted); line-height: 1.6;">Deskripsi detail dari projek...</p>
     </div>
-  </section>
+  </div>
 
-  <!-- Contact Form Section -->
-  <section class="contact-section" id="kontak">
-    <div class="section-title" style="margin-bottom: 2rem;">
-      <h2>Hubungi Kami</h2>
-      <p>Punya pertanyaan? Kirimkan pesan Anda di bawah ini.</p>
-    </div>
-
-    <form onsubmit="handleFormSubmit(event)">
-      <div class="form-group">
-        <label for="name">Nama Lengkap</label>
-        <input type="text" id="name" placeholder="Masukkan nama Anda..." required>
-      </div>
-      <div class="form-group">
-        <label for="email">Alamat Email</label>
-        <input type="email" id="email" placeholder="nama@email.com" required>
-      </div>
-      <div class="form-group">
-        <label for="message">Pesan</label>
-        <textarea id="message" rows="4" placeholder="Tuliskan pesan Anda..." required></textarea>
-      </div>
-      <button type="submit" class="btn-primary" style="width: 100%;">Kirim Pesan 🚀</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2026 MTs Nurul Hikmah. All Rights Reserved. Built with GitHub Pages.</p>
+    <p>&copy; 2026 MTs Nurul Hikmah — Repositori Terintegrasi GitHub Pages.</p>
   </footer>
 
-  <!-- Interactivity Scripts -->
+  <!-- JAVASCRIPT FOR INTERACTIVITY & TAB SWITCHING -->
   <script>
-    // 1. Dark/Light Mode Toggle
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      const btn = document.querySelector('.theme-toggle');
-      if (document.body.classList.contains('light-mode')) {
-        btn.innerHTML = '☀️ Mode Terang';
-      } else {
-        btn.innerHTML = '🌙 Mode Gelap';
+    // 1. SYSTEM SWITCH TAB / HALAMAN
+    function switchTab(tabId) {
+      // Sembunyikan semua tab
+      const tabs = document.querySelectorAll('.page-tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Nonaktifkan tombol navigasi
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Tampilkan tab yang dipilih
+      document.getElementById(tabId).classList.add('active');
+
+      // Aktifkan tombol yang sesuai
+      event.target.classList.add('active');
+
+      // Scroll ke atas halaman
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 2. FILTER GALERI PROJEK
+    function filterProjects(category) {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 3. MODAL POPUP SYSTEM
+    function openModal(title, desc) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-desc').innerText = desc;
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        closeModal();
       }
-    }
+    };
 
-    // 2. Typing Effect Animation
-    const words = ["Berkarakter.", "Berteknologi.", "Berprestasi."];
-    let i = 0;
-    let timer;
-
-    function typingEffect() {
-      let word = words[i].split("");
-      var loopTyping = function() {
-        if (word.length > 0) {
-          document.getElementById('typing').innerHTML += word.shift();
-        } else {
-          setTimeout(deletingEffect, 2000);
-          return false;
-        }
-        timer = setTimeout(loopTyping, 100);
-      };
-      loopTyping();
-    }
-
-    function deletingEffect() {
-      let word = words[i].split("");
-      var loopDeleting = function() {
-        if (word.length > 0) {
-          word.pop();
-          document.getElementById('typing').innerHTML = word.join("");
-        } else {
-          if (words.length > (i + 1)) {
-            i++;
-          } else {
-            i = 0;
-          }
-          setTimeout(typingEffect, 500);
-          return false;
-        }
-        timer = setTimeout(loopDeleting, 50);
-      };
-      loopDeleting();
-    }
-
-    typingEffect();
-
-    // 3. Card Interaction
-    function cardClick(title) {
-      alert('Anda memilih program: ' + title);
-    }
-
-    // 4. Form Submit Handler
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('name').value;
-      alert('Terima kasih, ' + name + '! Pesan Anda telah terkirim.');
-      event.target.reset();
+    // 4. FORM SUBMISSION
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      alert('Pesan Anda berhasil terkirim! Tim kami akan merespons secepatnya.');
+      e.target.reset();
     }
   </script>
 </body>
