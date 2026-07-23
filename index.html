@@ -3,114 +3,491 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aesthetic Portfolio</title>
+  <title>MTs Nurul Hikmah — Modern & Aesthetic Hub</title>
   <style>
-    /* Reset & Fonts */
+    /* CSS Variables & Theme */
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --accent-1: #a855f7;
+      --accent-2: #ec4899;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .light-mode {
+      --bg-color: #f1f5f9;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --border-color: rgba(0, 0, 0, 0.1);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Base Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      scroll-behavior: smooth;
     }
 
     body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      transition: background-color 0.4s ease, color 0.4s ease;
       min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.2rem 8%;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      background: linear-gradient(-45deg, #0f172a, #1e1b4b, #311042, #020617);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
-      color: #fff;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
     }
 
-    /* Gradient Animation */
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Glassmorphism Card */
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 3rem 2.5rem;
-      width: 90%;
-      max-width: 420px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(168, 85, 247, 0.2);
-    }
-
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin: 0 auto 1.5rem;
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-    }
-
-    h1 {
-      font-size: 1.8rem;
+    .logo {
+      font-size: 1.3rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(to right, #c084fc, #f472b6);
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    p {
-      color: #94a3b8;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
     }
 
-    /* Glow Button */
-    .btn {
-      display: inline-block;
-      width: 100%;
-      padding: 0.9rem;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #8b5cf6, #d946ef);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
+    nav a {
+      color: var(--text-sub);
       text-decoration: none;
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
       transition: all 0.3s ease;
     }
 
-    .btn:hover {
-      box-shadow: 0 6px 25px rgba(217, 70, 239, 0.7);
-      transform: scale(1.02);
+    .theme-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .badge {
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--accent-1);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      max-width: 800px;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .typing-text {
+      background: linear-gradient(135deg, #c084fc, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-sub);
+      font-size: 1.1rem;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      padding: 0.9rem 2rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 30px rgba(236, 72, 153, 0.6);
+    }
+
+    .btn-secondary {
+      padding: 0.9rem 2rem;
+      border-radius: 12px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    /* Stats Section */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      width: 90%;
+      margin: -2rem auto 6rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-card h3 {
+      font-size: 2.2rem;
+      color: var(--accent-1);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card p {
+      color: var(--text-sub);
+      font-size: 0.9rem;
+    }
+
+    /* Features Section */
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: var(--text-sub);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      width: 90%;
+      margin: 0 auto 8rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-1);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+    }
+
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .feature-card p {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Interactive Contact Section */
+    .contact-section {
+      max-width: 600px;
+      width: 90%;
+      margin: 0 auto 8rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-sub);
+      font-size: 0.9rem;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent-1);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-sub);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      nav { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="avatar">🚀</div>
-    <h1>MTs Nurul Hikmah</h1>
-    <p>Selamat datang di repositori resmi kami. Kami mengintegrasikan teknologi dan pendidikan untuk masa depan yang lebih baik.</p>
-    <a href="#" class="btn" onclick="alert('Terima kasih sudah berkunjung!')">Jelajahi Projek</a>
-  </div>
+  <!-- Navigation -->
+  <header>
+    <div class="logo">MTs Nurul Hikmah</div>
+    <nav>
+      <a href="#home">Beranda</a>
+      <a href="#fitur">Keunggulan</a>
+      <a href="#kontak">Hubungi Kami</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 Ubah Mode</button>
+  </header>
 
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="badge">🚀 Masa Depan Digital & Edukasi</div>
+    <h1>Mengembangkan Potensi Generasi Cerdas & <span class="typing-text" id="typing"></span></h1>
+    <p>Portal resmi integrasi teknologi dan pembelajaran modern. Menyiapkan peserta didik yang kreatif, inovatif, dan berakhlak mulia.</p>
+    <div class="cta-group">
+      <a href="#fitur" class="btn-primary">Jelajahi Fitur</a>
+      <a href="#kontak" class="btn-secondary">Kirim Pesan</a>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stat-card">
+      <h3>100%</h3>
+      <p>Kurikulum Digital</p>
+    </div>
+    <div class="stat-card">
+      <h3>500+</h3>
+      <p>Siswa Aktif</p>
+    </div>
+    <div class="stat-card">
+      <h3>24/7</h3>
+      <p>Akses Repositori</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="fitur">
+    <div class="section-title">
+      <h2>Program & Keunggulan</h2>
+      <p>Pengalaman belajar berbasis teknologi yang interaktif dan menyenangkan.</p>
+    </div>
+
+    <div class="features">
+      <div class="feature-card" onclick="cardClick('E-Learning Platform')">
+        <div class="icon">💻</div>
+        <h3>E-Learning Interaktif</h3>
+        <p>Akses materi pembelajaran, tugas, dan ujian secara fleksibel kapan saja dan di mana saja.</p>
+      </div>
+
+      <div class="feature-card" onclick="cardClick('Teknologi & Koding')">
+        <div class="icon">🤖</div>
+        <h3>Ekskul Teknologi</h3>
+        <p>Pelatihan dasar pemrograman, robotik, dan literasi digital untuk generasi muda.</p>
+      </div>
+
+      <div class="feature-card" onclick="cardClick('Perpustakaan Digital')">
+        <div class="icon">📚</div>
+        <h3>Digital Library</h3>
+        <p>Ribuan koleksi buku digital, modul, dan jurnal ilmiah yang dapat diakses dengan mudah.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-section" id="kontak">
+    <div class="section-title" style="margin-bottom: 2rem;">
+      <h2>Hubungi Kami</h2>
+      <p>Punya pertanyaan? Kirimkan pesan Anda di bawah ini.</p>
+    </div>
+
+    <form onsubmit="handleFormSubmit(event)">
+      <div class="form-group">
+        <label for="name">Nama Lengkap</label>
+        <input type="text" id="name" placeholder="Masukkan nama Anda..." required>
+      </div>
+      <div class="form-group">
+        <label for="email">Alamat Email</label>
+        <input type="email" id="email" placeholder="nama@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Pesan</label>
+        <textarea id="message" rows="4" placeholder="Tuliskan pesan Anda..." required></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width: 100%;">Kirim Pesan 🚀</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 MTs Nurul Hikmah. All Rights Reserved. Built with GitHub Pages.</p>
+  </footer>
+
+  <!-- Interactivity Scripts -->
+  <script>
+    // 1. Dark/Light Mode Toggle
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const btn = document.querySelector('.theme-toggle');
+      if (document.body.classList.contains('light-mode')) {
+        btn.innerHTML = '☀️ Mode Terang';
+      } else {
+        btn.innerHTML = '🌙 Mode Gelap';
+      }
+    }
+
+    // 2. Typing Effect Animation
+    const words = ["Berkarakter.", "Berteknologi.", "Berprestasi."];
+    let i = 0;
+    let timer;
+
+    function typingEffect() {
+      let word = words[i].split("");
+      var loopTyping = function() {
+        if (word.length > 0) {
+          document.getElementById('typing').innerHTML += word.shift();
+        } else {
+          setTimeout(deletingEffect, 2000);
+          return false;
+        }
+        timer = setTimeout(loopTyping, 100);
+      };
+      loopTyping();
+    }
+
+    function deletingEffect() {
+      let word = words[i].split("");
+      var loopDeleting = function() {
+        if (word.length > 0) {
+          word.pop();
+          document.getElementById('typing').innerHTML = word.join("");
+        } else {
+          if (words.length > (i + 1)) {
+            i++;
+          } else {
+            i = 0;
+          }
+          setTimeout(typingEffect, 500);
+          return false;
+        }
+        timer = setTimeout(loopDeleting, 50);
+      };
+      loopDeleting();
+    }
+
+    typingEffect();
+
+    // 3. Card Interaction
+    function cardClick(title) {
+      alert('Anda memilih program: ' + title);
+    }
+
+    // 4. Form Submit Handler
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      alert('Terima kasih, ' + name + '! Pesan Anda telah terkirim.');
+      event.target.reset();
+    }
+  </script>
 </body>
 </html>
